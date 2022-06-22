@@ -7,8 +7,8 @@
     <title>verification Email</title>
 </head>
 <body>
-    <h2>Hi {{$details['name']}}</h2>
-    <p>This is Email to verification your email if you want to verification your email please click <span><a href="{{Route('auth.verification' , $details['id'])}}">here </a></span></p>
+<h2>Hi {{$mailData['name']}}</h2>
+<p>This is Email to Reset your password on Elokaily app please click <span><a href="{{Route('auth.reset_password' , $mailData['id'])}}">here </a></span>if you want to reset your password</p>
 </body>
 </html>
 

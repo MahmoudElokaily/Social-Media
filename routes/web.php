@@ -20,17 +20,13 @@ Route::group(['prefix' => 'auth' , 'namespace' => 'App\Http\Controllers\Auth'] ,
     Route::post('check' ,'AuthController@check')->name('auth.check');
     Route::get('register' , 'AuthController@register')->name('auth.register');
     Route::post('store' , 'AuthController@store')->name('auth.store');
-    Route::get('send-email' , 'AuthController@sendEmailVerification');
+    Route::get('send-email-verification' , 'AuthController@sendEmailVerification');
     Route::get('verification-email/{id}' , 'AuthController@verificationEmail')->name('auth.verification');
+    Route::get('forget-password' , 'AuthController@forgetPassword')->name('auth.forget');
+    Route::post('send-password-mail' , 'AuthController@sendPasswordMail')->name('auth.send_password_mail');
+    Route::get('reset-password/{id}' , 'AuthController@resetPassword')->name('auth.reset_password');
+    Route::post('rest-password-done' , 'AuthController@updatePassword')->name('auth.update_password');
 });
 
-Route::get('send-email' , function (){
-    $mailData = [
-        'name' => 'Mahmoud',
-        'dob' => '27/11/2000',
-    ];
-    \Illuminate\Support\Facades\Mail::to('hello@example.com')->send(new \App\Mail\TestEmail($mailData));
-    dd("Mail send successfully");
-});
 
 ############################## End Auth #################################################

@@ -19,7 +19,7 @@
     </div>
 
     <div class="container" style="background-color:#f1f1f1">
-        <span class="psw"><a href="">Forget password?</a></span>
+        <span class="psw"><a href="{{route('auth.forget')}}">Forget password?</a></span>
         <br>
         <span ><a href="{{route('auth.register')}}">Register</a></span>
     </div>

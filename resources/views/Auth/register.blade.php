@@ -14,15 +14,24 @@
         <hr>
 
         <label for="name"><b>Name</b></label>
-        <input id="name" type="text" placeholder="Enter your name" name="name" id="name" >
+        <input id="name" type="text" placeholder="Enter your name" name="name" id="name">
+        @error('name')
+            <small class="form-text text-danger">{{$message}}</small>
+        @enderror
         <br>
 
         <label for="email"><b>Email</b></label>
-        <input id="email" type="text" placeholder="Enter your Email" name="email" >
+        <input id="email" type="text" placeholder="Enter your Email" name="email">
+        @error('email')
+        <small class="form-text text-danger">{{$message}}</small>
+        @enderror
         <br>
 
         <label for="psw"><b>Password</b></label>
         <input id="psw" type="password" placeholder="Enter Password" name="password1">
+        @error('password')
+        <small class="form-text text-danger">{{$message}}</small>
+        @enderror
         <br>
 
         <div class="alert alert-danger">
