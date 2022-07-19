@@ -25,17 +25,9 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name' => 'required|max:100',
-            'email' => 'required|max:100',
-            'password' => 'required|max:100',
+            'email' => 'required|unique:users|max:100',
+            'password' => 'required|max:100|confirmed',
         ];
     }
 
-    public function messages()
-    {
-        return [
-            'name.required' => 'This field is required',
-            'email.required' => 'This field is required',
-            'password.required' => 'This field is required',
-        ];
-    }
 }

@@ -28,7 +28,7 @@
         <br>
 
         <label for="psw"><b>Password</b></label>
-        <input id="psw" type="password" placeholder="Enter Password" name="password1">
+        <input id="psw" type="password" placeholder="Enter Password" name="password">
         @error('password')
         <small class="form-text text-danger">{{$message}}</small>
         @enderror
@@ -40,7 +40,7 @@
             @endif
         </div>
         <label for="psw-repeat"><b>Confirm Password</b></label>
-        <input id="psw-repeat" type="password" placeholder="Confirm Password" name="password2">
+        <input id="psw-repeat" type="password" placeholder="Confirm Password" name="password_confirmation">
         <br>
         <hr>
         <button type="submit" class="registerbtn">Register</button>
