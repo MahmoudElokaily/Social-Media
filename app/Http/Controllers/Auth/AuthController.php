@@ -8,6 +8,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Mail\ForgetPassword;
 use App\Mail\verificationEmail;
 use App\Models\User;
+use App\traits\responseTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +20,7 @@ use Illuminate\Testing\Fluent\Concerns\Has;
 
 class AuthController extends Controller
 {
+    use responseTrait;
     public function index(){
         return User::all();
     }
@@ -27,16 +29,11 @@ class AuthController extends Controller
         $fields = $request->validated();
         $user = User::where('email' , $fields['email'])->first();
         if (!$user || !Hash::check($fields['password']  , $user->password)){
-            return response([
-                'message' => 'Bad Creds',
-            ] , 401);
+            return $this->response(message: 'Bad Creds' , status: 401);
         }
         $token = $user->createToken('myapptoken')->plainTextToken;
-        $response = [
-            'user' => $user,
-            'token' => $token,
-        ];
-        return response($response , 201);
+        $message = 'user loggin';
+        return $this->response(user: $user ,message: $message , token: $token , status: 201);
     }
 
     public function register(RegisterRequest $request){
@@ -48,12 +45,7 @@ class AuthController extends Controller
         ]);
 //        $this->sendEmailVerification($user);
         $token = $user->createToken('myapptoken')->plainTextToken;
-        $response = [
-            'user' => $user,
-            'token' => $token,
-        ];
-        return response($response , 201);
-
+        return $this->response(user: $user , message: 'New user added',token: $token ,status: 201);
     }
 
 
@@ -99,20 +91,29 @@ class AuthController extends Controller
         return view('Auth.resetPassword')->with('id' , $id);
    }
 
-   public function update(Request $request , $id){
+   public function update(Request $request, $id){
         $user = User::find($id);
-        $user->update($request->all());
-        return $user;
+        $user->update([
+            'name' => $request->name,
+            'password' => $request->password,
+        ]);
+        $message = 'all things is up to date';
+        return $this->response(message: $message , status: 201);
    }
 
    public function delete($id){
-        return User::destroy($id);
+        $user = User::destroy($id);
+        return $this->response(user: $user , message: 'user is deleted' , status: 201);
    }
 
    public function logout(Request $request){
         auth()->user()->tokens()->delete();
-        return [
-            'message' => 'Logged out',
-        ];
+        $message = 'Logged out';
+        return $this->response(message: $message , status: 201);
+   }
+
+   public function show($id){
+      $user = User::find($id);
+      return $this->response(user: $user , status: 201);
    }
 }
